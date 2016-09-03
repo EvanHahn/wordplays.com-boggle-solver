@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "standard"
+  },
+  "devDependencies": {
+    "standard": "^8.0.0"
+  }
+}
