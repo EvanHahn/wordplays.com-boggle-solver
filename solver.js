@@ -17,8 +17,60 @@
 
   let toAttempt = letters.map((l, i) => [i])
 
-  while (toAttempt.length) {
-    const letterIndeces = toAttempt.pop()
-    submit(letterIndeces)
+  function addAttempt (indeces, indexToAdd) {
+    if (indeces.indexOf(indexToAdd) === -1) {
+      toAttempt.push(indeces.concat(indexToAdd))
+    }
   }
+
+  function tick () {
+    const indeces = toAttempt.pop()
+    submit(indeces)
+
+    const lastIndex = indeces[indeces.length - 1]
+
+    // up
+    if (lastIndex >= BOARD_SIZE) {
+      // straight up
+      addAttempt(indeces, lastIndex - BOARD_SIZE)
+      // up and to the left
+      if (lastIndex % BOARD_SIZE) {
+        addAttempt(indeces, lastIndex - BOARD_SIZE - 1)
+      }
+      // up and to the right
+      if ((lastIndex + 1) % BOARD_SIZE) {
+        addAttempt(indeces, lastIndex - BOARD_SIZE + 1)
+      }
+    }
+
+    // left
+    if (lastIndex % BOARD_SIZE) {
+      addAttempt(indeces, lastIndex - 1)
+    }
+
+    // right
+    if ((lastIndex + 1) % BOARD_SIZE) {
+      addAttempt(indeces, lastIndex + 1)
+    }
+
+    // down
+    if (lastIndex < (BOARD_SIZE * (BOARD_SIZE - 1))) {
+      // straight down
+      addAttempt(indeces, lastIndex + BOARD_SIZE)
+      // down and to the left
+      if (lastIndex % BOARD_SIZE) {
+        addAttempt(indeces, lastIndex + BOARD_SIZE - 1)
+      }
+      // down and to the right
+      if ((lastIndex + 1) % BOARD_SIZE) {
+        addAttempt(indeces, lastIndex + BOARD_SIZE + 1)
+      }
+    }
+
+    if (toAttempt.length) {
+      requestAnimationFrame(tick)
+    }
+  }
+
+  requestAnimationFrame(tick)
 })();
