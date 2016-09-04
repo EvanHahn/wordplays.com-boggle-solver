@@ -1,3 +1,5 @@
+/* global Event, requestAnimationFrame */
+
 ;(function () {
   const BOARD_SIZE = 4
 
@@ -73,4 +75,4 @@
   }
 
   requestAnimationFrame(tick)
-})();
+})()
