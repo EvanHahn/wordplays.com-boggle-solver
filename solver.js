@@ -24,7 +24,7 @@
   }
 
   function tick () {
-    const indeces = toAttempt.pop()
+    const indeces = toAttempt.shift()
     submit(indeces)
 
     const lastIndex = indeces[indeces.length - 1]
